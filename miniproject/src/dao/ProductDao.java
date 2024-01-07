@@ -13,8 +13,7 @@ public class ProductDao extends Connector{
 		List<Product> products = new ArrayList<>();
 		String sql = "select * from product";
 		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+		try (PreparedStatement ps = connection.prepareStatement(sql);) {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -41,8 +40,7 @@ public class ProductDao extends Connector{
 	public Product getProductById(int id) {
 		String sql = "select * from product where id = ?";
 		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+		try (PreparedStatement ps = connection.prepareStatement(sql);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
@@ -75,8 +73,7 @@ public class ProductDao extends Connector{
 			sql += " and name like '%" + txt + "%'";
 		}
 		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+		try (PreparedStatement ps = connection.prepareStatement(sql);) {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -96,7 +93,7 @@ public class ProductDao extends Connector{
 	
 //	public static void main(String[] args) {
 //		ProductDao productDao = new ProductDao();
-//		List<Product> products = productDao.search("a");
+//		List<Product> products = productDao.search("coca");
 //		System.out.println(products);
 //	}
 	

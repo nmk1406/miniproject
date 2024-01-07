@@ -10,8 +10,7 @@ public class CustomerDao extends Connector{
 	public Customer validate(String username, String password) {
 		String sql = "select * from customer where username = ? and password = ?";
 		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+		try (PreparedStatement ps = connection.prepareStatement(sql);) {
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
